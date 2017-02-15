@@ -25,3 +25,17 @@ func TestPanic(t *testing.T) {
 	}
 	PrintStackTrace(erf())
 }
+
+func TestCause(t *testing.T) {
+	erf1  := func() error {
+		return New("this function is never gonna work")
+	} 
+	erf2 := func() error {
+		err := erf1()
+		if err != nil {
+			return New("is this function gonna work?").CausedBy(err)
+		}
+		return nil
+	}
+	PrintStackTrace(erf2())
+}

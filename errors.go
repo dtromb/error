@@ -195,6 +195,7 @@ func StackTrace(err error) string {
 
 func PrintStackTrace(err error) {
 	e := err
+	fmt.Println(e.Error())
 	for e != nil {
 		if ste, ok := e.(StackTracedError); ok {
 			for i, entry := range ste.Trace() {
